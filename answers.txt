@@ -1,0 +1,8 @@
+Exercise 3.1
+============
+Answer: Three
+
+Exercise 3.6
+============
+It cannot be implemented in constant time because the list must be traversed in order to find the last element. Also, it must be copied.
+
