@@ -86,6 +86,17 @@ object FpList {
     foldLeft(rl, z)((a, b) => f(b, a))
   }
 
+  // Exercise 3.14
+  def append[A](as: FpList[A], elem: A): FpList[A] = {
+    val rl = reverse(as)
+    foldLeft(rl, Cons(elem, FpNil))((l, i) => Cons(i, l))
+  }
+
+  // Exercise 3.15
+  def flatten[A](as: FpList[FpList[A]]): FpList[A] = {
+     
+  }
+
   def apply[A](as: A*): FpList[A] =
     if (as.isEmpty) FpNil
     else Cons(as.head, apply(as.tail: _*))
