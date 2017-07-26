@@ -52,6 +52,40 @@ object FpList {
     case Cons(x, xs)  => x * product(xs)
   }
 
+  // Exercise 3.10
+  def foldLeft[A, B](as: FpList[A], z: B)(f: (B, A) => B): B =
+    as match {
+      case FpNil => z
+      case Cons(x, xs) => foldLeft(xs, f(z, x))(f) 
+    }
+
+  def foldRight[A, B](as: FpList[A], z: B)(f: (A, B) => B): B =
+    as match {
+      case FpNil => z
+      case Cons(x, xs) => f(x, foldRight(xs, z)(f))
+    }
+
+  def sum2(ns: FpList[Int]) = foldRight(ns, 0)((x, y) => x + y)
+
+  def product2(ns: FpList[Double]) = foldRight(ns, 1.0)(_ * _)
+
+  def length[A](as: FpList[A]): Int = foldRight(as, 0)((x, y) => 1 + y)
+
+  def sum3(ns: FpList[Int]) = foldLeft(ns, 0)((x, y) => x + y)
+
+  def product3(ns: FpList[Double]) = foldLeft(ns, 1.0)(_ * _)
+
+  def length2[A](as: FpList[A]): Int = foldLeft(as, 0)((y, x) => 1 + y)
+
+  // Exercise 3.12
+  def reverse[A](as: FpList[A]): FpList[A] = foldLeft[A, FpList[A]](as, FpNil)((list, elem) => Cons(elem, list))
+
+  // Exercise 3.13
+  def foldRight2[A, B](as: FpList[A], z: B)(f: (A, B) => B): B = {
+    val rl = foldLeft[A, FpList[A]](as, FpNil)((list, elem) => Cons(elem, list))
+    foldLeft(rl, z)((a, b) => f(b, a))
+  }
+
   def apply[A](as: A*): FpList[A] =
     if (as.isEmpty) FpNil
     else Cons(as.head, apply(as.tail: _*))

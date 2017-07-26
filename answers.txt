@@ -6,3 +6,9 @@ Exercise 3.6
 ============
 It cannot be implemented in constant time because the list must be traversed in order to find the last element. Also, it must be copied.
 
+Exercise 3.7
+============
+No, because the recursive calls are to foldRight not product.
+
+Exercise 3.8
+============
