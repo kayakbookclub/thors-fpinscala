@@ -111,7 +111,10 @@ object FpList {
   def filterViaFlatmap[A](as: FpList[A])(f: A => Boolean): FpList[A] = flatmap(as)(x => if (f(x)) FpList(x) else FpNil)
 
   // Exercise 3.22
-
+  def mergeValues[Int](a: FpList[Int], b: FpList[Int]): FpList[Int] = ??? 
+  
+  // Exercise 3.23
+  def zipWith[A](a: FpList[A], b: FpList[A])(f: (A, A) => A): FpList[A] = ???
 
 
   def apply[A](as: A*): FpList[A] =
