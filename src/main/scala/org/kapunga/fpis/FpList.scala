@@ -87,15 +87,32 @@ object FpList {
   }
 
   // Exercise 3.14
-  def append[A](as: FpList[A], elem: A): FpList[A] = {
-    val rl = reverse(as)
-    foldLeft(rl, Cons(elem, FpNil))((l, i) => Cons(i, l))
-  }
+  def append[A](a: FpList[A], b: FpList[A]): FpList[A] = foldRight2(a, b)((x, xs) => Cons(x, xs))
 
   // Exercise 3.15
-  def flatten[A](as: FpList[FpList[A]]): FpList[A] = {
-     
-  }
+  def flatten[A](as: FpList[FpList[A]]): FpList[A] = foldRight2(as, FpNil:FpList[A])(append(_, _)) 
+
+  // Exercise 3.16
+  def addOne(as: FpList[Int]): FpList[Int] = foldRight2(as, FpNil:FpList[Int])((x, xs) => Cons(x + 1, xs))
+
+  // Exercise 3.17
+  def doubleToString(as: FpList[Double]): FpList[String] = foldRight2(as, FpNil:FpList[String])((x, xs) => Cons(x.toString, xs))
+
+  // Exercise 3.18
+  def map[A, B](as: FpList[A])(f: A => B): FpList[B] = foldRight2(as, FpNil:FpList[B])((x, xs) => Cons(f(x), xs))
+
+  // Exercise 3.19
+  def filter[A](as: FpList[A])(f: A => Boolean): FpList[A] = foldRight2(as, FpNil:FpList[A])((x, xs) => if (f(x)) Cons(x, xs) else xs)
+
+  // Exercise 3.20
+  def flatmap[A, B](as: FpList[A])(f: A => FpList[B]): FpList[B] = foldRight2(as, FpNil:FpList[B])((x, xs) => append(f(x), xs))
+
+  // Exercise 3.21
+  def filterViaFlatmap[A](as: FpList[A])(f: A => Boolean): FpList[A] = flatmap(as)(x => if (f(x)) FpList(x) else FpNil)
+
+  // Exercise 3.22
+
+
 
   def apply[A](as: A*): FpList[A] =
     if (as.isEmpty) FpNil
